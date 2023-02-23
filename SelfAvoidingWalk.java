@@ -1,7 +1,9 @@
+import java.util.Arrays;
+
 public class SelfAvoidingWalk {
 
 public static int[] snakelike(int num){
-    int[] result = new int[2];
+    int[] result = new int[3];
     result[1]++;
     boolean[][] grid = new boolean[num][num];
     int x=num/2;
@@ -28,53 +30,72 @@ public static int[] snakelike(int num){
             y < 0 || y >= num) {
             result[0]=1;
         } else {
+            result[2]=deadEndRectangleArea(grid);
             result[0]=0;
         }
+        System.out.println(Arrays.toString(result));
         return result;
+}
+public static int deadEndRectangleArea(boolean[][] grid){
+    int[] topL=new int[2];
+    int[] botR=new int[2];
+    int finalArea = 0;
+    for(int x=0;x<grid.length;x++){
+        for(int y=0;y<grid[0].length;y++){
+            if(grid[x][y]==true){
+                topL[0]=x;
+                topL[1]=y;
+                x=100;
+                y=100;
+            }
+        }
+    }
+    for(int x=grid.length-1;x>=0;x--){
+        for(int y=grid[0].length-1;y>=0;y--){
+            if(grid[x][y]==true){
+                botR[0]=x;
+                botR[1]=y;
+                x=-1;
+                y=-1;
+            }
+        }
+    }
+int h=botR[1]-topL[1];
+if(h<1){
+    h++;
+}
+int y=botR[1]-topL[1];
+if(y<1){
+    y++;
+}
+finalArea=y*h;
+  return finalArea;  
 }
 
 public static void printPathLengths(){
-    int d = 10;
-    int trials = 10000;
+    int d = 5;
+    int trials = 10;
     int numEscape = 0;
     int numDie = 0;
-    int[] distanceE=new int[0];
-    int[] distanceD=new int[0];
-
+    int distanceE=0;
+    int distanceD=0;
+    int areaSum=0;
     for (int t = 0; t < trials; t++) {
         int[] result = snakelike(d);
         if (result[0]==1) {
-            int[] copyList = new int[distanceE.length+1];
-            for(int x = 0; x< distanceE.length; x++){
-              copyList[x] = distanceE[x];
-            }
-            copyList[copyList.length-1] = result[1];
-            distanceE = copyList;
+            distanceE+=result[1];
             numEscape++;
         }else{
-            int[] copyList = new int[distanceD.length+1];
-            for(int x = 0; x< distanceD.length; x++){
-              copyList[x] = distanceD[x];
-            }
-            copyList[copyList.length-1] = result[1];
-            distanceD = copyList;
+            areaSum+=result[2];
+            distanceD+=result[1];
             numDie++;
         
     
         }
 }
-int sum=0;
-double DieAv=0;
-for(int e=0;e<distanceD.length;e++){
-    sum+=distanceD[e];
-    DieAv=(double) sum/distanceD.length;
-}
-int sum2=0;
-double EscAv=0;
-for(int q=0;q<distanceE.length;q++){
-    sum2+=distanceE[q];
-    EscAv=(double) sum2/distanceE.length;
-}
+double DieAv=(double) distanceD/numDie;
+double AreaAv=(double) areaSum/numDie;
+double EscAv=(double) distanceE/numEscape;
     System.out.println("Did " + trials + " trials");
     System.out.println("Escaped " + numEscape + " times");
     System.out.println("Probability of escape is " + (double) numEscape / trials);
@@ -82,9 +103,11 @@ for(int q=0;q<distanceE.length;q++){
     System.out.println("Died " + numDie + " times");
     System.out.println("Probability of Death is " + (double) numDie / trials);
     System.out.println("Average Distance on Deaths: "+DieAv);
+    System.out.println("Average Area of death: "+AreaAv);
 
 
 }
+
     public static void main(String[] args) {
     printPathLengths();
 }
