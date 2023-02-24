@@ -33,7 +33,6 @@ public static int[] snakelike(int num){
             result[2]=deadEndRectangleArea(grid);
             result[0]=0;
         }
-        System.out.println(Arrays.toString(result));
         return result;
 }
 public static int deadEndRectangleArea(boolean[][] grid){
@@ -43,8 +42,8 @@ public static int deadEndRectangleArea(boolean[][] grid){
     for(int x=0;x<grid.length;x++){
         for(int y=0;y<grid[0].length;y++){
             if(grid[x][y]==true){
-                topL[0]=x;
-                topL[1]=y;
+                topL[0]=x-1;
+                topL[1]=y-1;
                 x=100;
                 y=100;
             }
@@ -74,7 +73,7 @@ finalArea=y*h;
 
 public static void printPathLengths(){
     int d = 5;
-    int trials = 10;
+    int trials = 10000;
     int numEscape = 0;
     int numDie = 0;
     int distanceE=0;
