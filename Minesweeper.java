@@ -18,8 +18,20 @@ public class Minesweeper {
 
         return board;
     }
+    public static void printMinesweeperBoard(boolean[][] board){
+        for(int x=0;x<board.length;x++){
+            for(int y=0;y<board[0].length;y++){
+                if(board[x][y]){
+                    System.out.print("* ");
+                }else{
+                    System.out.print(". ");
+                }
+            }
+            System.out.println();
+        }
+
+    }
     public static void main(String[] args) {
-    System.out.println(Arrays.deepToString(makeMinesweeperBoard(5, 5, 0.50)));
-    
+printMinesweeperBoard(makeMinesweeperBoard(5, 5, 0.50));
     }
 }
