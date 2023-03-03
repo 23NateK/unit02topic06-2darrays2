@@ -29,6 +29,21 @@ public class Minesweeper {
         }
 
     }
+    public static int[][] makeNeighborBoard(Boolean[][] boolBoard){
+        int[][] intBoard= new int[boolBoard.length][boolBoard[0].length];
+        for(int x=0;x<boolBoard.length;x++){
+            for(int y=0;y<boolBoard.length;y++){
+                if (boolBoard[x][y]){
+                    intBoard[x][y]=10;
+                }
+            }
+        }
+        for(int x=0;x<boolBoard.length;x++){
+            for(int y=0;y<boolBoard.length;y++){
+                
+            }
+        }
+    }
     public static void main(String[] args) {
     printMinesweeperBoard(makeMinesweeperBoard(5, 5, 0.25));
     }
