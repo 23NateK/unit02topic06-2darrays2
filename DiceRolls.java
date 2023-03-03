@@ -1,6 +1,3 @@
-import java.util.Arrays;
-
-import javax.sql.rowset.spi.SyncResolver;
 public class DiceRolls {
 
     public static double[] twoD6Probabilities(int trials){
