@@ -1,5 +1,3 @@
-import java.util.Arrays;
-
 public class SelfAvoidingWalk {
 
 public static int[] snakelike(int num){

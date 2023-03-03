@@ -1,5 +1,3 @@
-import java.util.Arrays;
-
 public class Minesweeper {
     public static boolean[][] makeMinesweeperBoard(int n,int m, double p){
         boolean[][] board= new boolean[n][m];
@@ -32,6 +30,6 @@ public class Minesweeper {
 
     }
     public static void main(String[] args) {
-printMinesweeperBoard(makeMinesweeperBoard(5, 5, 0.50));
+    printMinesweeperBoard(makeMinesweeperBoard(5, 5, 0.25));
     }
 }
